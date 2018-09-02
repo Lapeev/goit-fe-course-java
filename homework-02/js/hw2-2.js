@@ -1,5 +1,5 @@
 'use strict';
-let arr = [];
+const arr = [];
 let number;
 let element;
 let sum = 0;
@@ -10,12 +10,15 @@ let sum = 0;
      {
    arr.push(Number(number));
      }
+  if (isNaN(number)) 
+  {
+    alert('Было введено не число, попробуйте еще раз');
+  }
  }
-  while (number!==null && !isNaN(number))
+  while (number!==null)
   if (arr.length>0) {
     for (element of arr) {
       sum = sum + element;
     }
     alert(`Общая сумма чисел равна ${sum}`);
   }
-console.log(sum);
