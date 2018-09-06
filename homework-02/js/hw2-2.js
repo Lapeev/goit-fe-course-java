@@ -6,7 +6,7 @@ let sum = 0;
 
  do {
    number = prompt('Введите число');
-   if (number!==null && !isNaN(number))
+   if (!isNaN(number))
      {
    arr.push(Number(number));
      }
