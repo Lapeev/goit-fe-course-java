@@ -5,14 +5,14 @@ let element;
 let sum = 0;
 
  do {
-   number = prompt('Введите число', " ");
+   number = prompt('Введите число');
 
-   if (!isNaN(number))
+   if (number!==null && !isNaN(number))
      {
    arr.push(Number(number));
      }
    
-     else 
+     if (isNaN(number)) 
   {
     alert('Было введено не число, попробуйте еще раз');
   }
