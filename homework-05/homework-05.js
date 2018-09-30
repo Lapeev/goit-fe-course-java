@@ -94,13 +94,13 @@ const users = [
     },
   ];
   
-  const getAllNames = arr => arr.reduce((acc, people) => acc.concat(people.name), []);
+  const getAllNames = arr => arr.map((people) => people.name);
   console.log(getAllNames(users));
   
   const getUsersByEyeColor = (arr, color) => arr.filter((arr) => arr.eyeColor === color );
   console.log(getUsersByEyeColor(users, 'blue'));
   
-  const getUsersByGender = (arr, gender) => arr.filter((arr) => arr.gender === gender);
+  const getUsersByGender = (arr, gender) => arr.filter((arr) => arr.gender === gender).map((people => people.name));
   console.log(getUsersByGender(users, 'male'));
   
   const getInactiveUsers = arr => arr.filter((arr) => !arr.isActive);
