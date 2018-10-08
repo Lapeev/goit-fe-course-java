@@ -22,7 +22,7 @@ const posts = [
   ];
   
   
-  function createElement(post) {
+  function createPostCard(post) {
   const node = document.createElement('div');
   node.classList.add('post');
   
@@ -58,7 +58,7 @@ const posts = [
   return domNode;  
   };
   
-  const domArr = posts.reduce((dom, el) => dom.concat(createElement(el)), []);
+  const domArr = posts.reduce((dom, el) => dom.concat(createPostCard(el)), []);
   const body = document.querySelector('body');
   
   domArr.forEach((dom) => body.insertAdjacentHTML('beforeend', dom));
