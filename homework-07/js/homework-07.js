@@ -51,7 +51,7 @@ const posts = [
   node.appendChild(text);
   node.appendChild(button);
     
-  const domNode = node.innerHTML; 
+  const domNode = document.querySelector('body').innerHTML; 
   const body = document.querySelector('body');
     
   body.removeChild(node);
