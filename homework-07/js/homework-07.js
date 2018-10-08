@@ -46,10 +46,10 @@ const posts = [
   
     
   document.querySelector('body').appendChild(node);
-  document.querySelector('.post').appendChild(img);
-  document.querySelector('.post').appendChild(head);
-  document.querySelector('.post').appendChild(text);
-  document.querySelector('.post').appendChild(button);
+  node.appendChild(img);
+  node.appendChild(head);
+  node.appendChild(text);
+  node.appendChild(button);
     
   const domNode = node.innerHTML; 
   const body = document.querySelector('body');
