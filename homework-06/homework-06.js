@@ -32,14 +32,7 @@ class Hamburger {
      }
     
     calculatePrice() {
-      
-      let b = 0; 
-      
-      for (let i = 0; i < this._toppings.length; i+=1) {
-        b += Hamburger.TOPPINGS[this._toppings[i]].price;
-      }
-      
-     return (Hamburger.SIZES[this._size].price + Hamburger.STUFFINGS[this._stuffing].price + b);
+      return (Hamburger.SIZES[this._size].price + Hamburger.STUFFINGS[this._stuffing].price + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]].price, 0));
     }
     
     calculateCalories() {
@@ -50,12 +43,16 @@ class Hamburger {
         b += Hamburger.TOPPINGS[this._toppings[i]].calories;
       }
       
-     return (Hamburger.SIZES[this._size].calories + Hamburger.STUFFINGS[this._stuffing].calories + b);
+     return (Hamburger.SIZES[this._size].calories + Hamburger.STUFFINGS[this._stuffing].calories + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]].calories, 0));
       
     }
     
     get price() {
       return this.calculatePrice();
+    }
+
+    get getStuffing() {
+      return this._stuffing;
     }
   }
   Hamburger.SIZE_SMALL = 'SIZE_SMALL';
