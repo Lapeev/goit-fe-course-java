@@ -36,13 +36,7 @@ class Hamburger {
     }
     
     calculateCalories() {
-      
-      let b = 0; 
-      
-      for (let i = 0; i < this._toppings.length; i+=1) {
-        b += Hamburger.TOPPINGS[this._toppings[i]].calories;
-      }
-      
+       
      return (Hamburger.SIZES[this._size].calories + Hamburger.STUFFINGS[this._stuffing].calories + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]].calories, 0));
       
     }
