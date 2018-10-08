@@ -31,15 +31,16 @@ class Hamburger {
        return this._stuffing;
      }
     
+     calculate(key) {
+      return (Hamburger.SIZES[this._size][key] + Hamburger.STUFFINGS[this._stuffing][key] + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]][key], 0));
+    }
+  
     calculatePrice() {
-      return (Hamburger.SIZES[this._size].price + Hamburger.STUFFINGS[this._stuffing].price + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]].price, 0));
+      return this.calculate('price');
     }
-    
     calculateCalories() {
-       
-     return (Hamburger.SIZES[this._size].calories + Hamburger.STUFFINGS[this._stuffing].calories + this._toppings.reduce((acc, el, i) => acc +=  Hamburger.TOPPINGS[this._toppings[i]].calories, 0));
-      
-    }
+     return this.calculate('calories');
+    } 
     
     get price() {
       return this.calculatePrice();
