@@ -42,13 +42,6 @@ class Hamburger {
      return this.calculate('calories');
     } 
     
-    get price() {
-      return this.calculatePrice();
-    }
-
-    get getStuffing() {
-      return this._stuffing;
-    }
   }
   Hamburger.SIZE_SMALL = 'SIZE_SMALL';
   Hamburger.SIZE_LARGE = 'SIZE_LARGE'
