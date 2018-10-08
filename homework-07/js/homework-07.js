@@ -28,8 +28,8 @@ const posts = [
   
   const img = document.createElement('img');
   img.classList.add('post__image');
-  img.src = post.img;
-  img.alt = "http://via.placeholder.com/400x150";
+  img.setAttribute('src', `${post.img}`);
+  img.setAttribute('alt', 'http://via.placeholder.com/400x150');
   
   const head = document.createElement('h2');
   head.classList.add('post__title');
@@ -41,7 +41,7 @@ const posts = [
   
   const button = document.createElement('a');
   button.classList.add('button');
-  button.href = `${post.link}`;
+  button.setAttribute('href', `${post.link}`);
   button.textContent = post.link;
   
     
