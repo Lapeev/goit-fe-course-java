@@ -43,8 +43,8 @@ const buildGallery = (arrObj) => {
     
     liImgs.map(li => li.classList.remove('preview_selected'));
     target.parentNode.classList.add('preview_selected');
-    fullImg.setAttribute('src', arrObj.filter(imgs => imgs.preview == target.getAttribute('src'))[0].fullview);
-    fullImg.setAttribute('alt', arrObj.filter(imgs => imgs.preview == target.getAttribute('src'))[0].alt);
+    fullImg.setAttribute('src', arrObj.find(imgs => imgs.preview == target.getAttribute('src')).fullview);
+    fullImg.setAttribute('alt', arrObj.find(imgs => imgs.preview == target.getAttribute('src')).alt);
   }
 
   preview.addEventListener('click', switcher);
