@@ -20,46 +20,43 @@ const posts = [
       link: 'link-3.com'
     }
   ];
-  
-  
-  function createPostCard(post) {
-  const node = document.createElement('div');
-  node.classList.add('post');
-  
-  const img = document.createElement('img');
-  img.classList.add('post__image');
-  img.setAttribute('src', `${post.img}`);
-  img.setAttribute('alt', 'http://via.placeholder.com/400x150');
-  
-  const head = document.createElement('h2');
-  head.classList.add('post__title');
-  head.textContent = post.title;
-  
-  const text = document.createElement('p');
-  text.classList.add('post__text');
-  text.textContent = post.text;
-  
-  const button = document.createElement('a');
-  button.classList.add('button');
-  button.setAttribute('href', `${post.link}`);
-  button.textContent = post.link;
-  
+
+  function createPostCard({img, title, text, link}) {
+    const block = document.createElement('div');
+    block.classList.add('post');
+
+    const blockImg = document.createElement('img');
+    blockImg.classList.add('post__image');
+    blockImg.setAttribute('src', img);
+    blockImg.setAttribute('alt', 'http://via.placeholder.com/400x150');
+
+    const blockTitle = document.createElement('h2');
+    blockTitle.classList.add('post__title');
+    blockTitle.textContent = title;
+
+    const blockText = document.createElement('p');
+    blockText.classList.add('post__text');
+    blockText.textContent = text;
+
+    const blockButton = document.createElement('a');
+    blockButton.classList.add('button');
+    blockButton.setAttribute('href', `${link}`);
+    blockButton.textContent = link;
+
     
-  document.querySelector('body').appendChild(node);
-  node.appendChild(img);
-  node.appendChild(head);
-  node.appendChild(text);
-  node.appendChild(button);
+    block.appendChild(blockImg);
+    block.appendChild(blockTitle);
+    block.appendChild(blockText);
+    block.appendChild(blockButton);
     
-  const domNode = document.querySelector('body').innerHTML; 
-  const body = document.querySelector('body');
-    
-  body.removeChild(node);
-  return domNode;  
-  };
-  
-  const domArr = posts.reduce((dom, el) => dom.concat(createPostCard(el)), []);
-  const body = document.querySelector('body');
-  
-  domArr.forEach((dom) => body.insertAdjacentHTML('beforeend', dom));
-  console.log(domArr);
+    return block;
+};
+
+function createCards(posts) {
+  return posts.map(item => createPostCard(item));
+}
+
+
+const body = document.querySelector('body');
+createCards(posts).forEach(item => body.appendChild(item));
+console.log(createCards(posts));
