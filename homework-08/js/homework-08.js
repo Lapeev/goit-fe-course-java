@@ -56,7 +56,7 @@ const buildGallery = (arrObj) => {
 
     const liImgs = Array.from(document.querySelectorAll('li'));
     
-    liImgs.map(li => li.classList.remove('preview_selected'));
+    liImgs.forEach(li => li.classList.remove('preview_selected'));
     target.parentNode.classList.add('preview_selected');
     fullImg.setAttribute('src', arrObj.find(imgs => imgs.preview == target.getAttribute('src')).fullview);
     fullImg.setAttribute('alt', arrObj.find(imgs => imgs.preview == target.getAttribute('src')).alt);
