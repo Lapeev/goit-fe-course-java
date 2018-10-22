@@ -9,29 +9,44 @@ const galleryItems = [
   { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
 ];
 
+const galleryH = document.querySelector('.image-gallery');
+
+galleryH.classList.add('js-image-gallery');
+
 const gallery = document.querySelector('.js-image-gallery');
-const full = document.querySelector('.fullview');
-const preview = document.querySelector('.preview');
 
 const buildGallery = (arrObj) => {
-  arrObj.map(liEl => {
-    const liItem = document.createElement('li');
-    preview.appendChild(liItem);
-  })
+  
+  const full = document.createElement('div');
+  full.classList.add('fullview');
+  gallery.prepend(full);
 
-  const liItems = Array.from(document.querySelectorAll('li'));
-  liItems.map((li, i) => {
+  const preview = document.createElement('ul');
+  preview.classList.add('preview');
+  gallery.appendChild(preview);
+
+  (function(arrObj) {
+    arrObj.forEach(liEl => {
+      const liItem = document.createElement('li');
+      preview.appendChild(liItem);
+    });
+    const liItems = Array.from(document.querySelectorAll('li'));
+    liItems.forEach((li, i) => {
     const liImg = document.createElement('img');
     liImg.setAttribute('src', arrObj[i].preview);
     liImg.setAttribute('alt', arrObj[i].alt);
+    liImg.dataset.fullview = arrObj[i].fullview;
     li.appendChild(liImg);
-  })
+    });
+  }(arrObj));
 
+  const liImg = Array.from(document.querySelectorAll('img'));
   const fullImg = document.createElement('img');
-  fullImg.setAttribute('src', arrObj[0].fullview);
-  fullImg.setAttribute('alt', arrObj[0].alt);
+
+  fullImg.setAttribute('src', liImg[0].dataset.fullview);
+  fullImg.setAttribute('alt', liImg[0].alt);
   full.appendChild(fullImg);
-  liItems[0].classList.add('preview_selected');
+  liImg[0].parentNode.classList.add('preview_selected');
 
   const switcher = (e) => {
 
@@ -49,5 +64,6 @@ const buildGallery = (arrObj) => {
 
   preview.addEventListener('click', switcher);
 }
+
 buildGallery(galleryItems);
 
