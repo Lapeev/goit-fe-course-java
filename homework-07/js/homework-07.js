@@ -23,7 +23,9 @@ const posts = [
 
   function createPostCard({img, title, text, link}) {
     const block = document.createElement('div');
-    block.classList.add('post');
+    
+    const blockDiv = document.createElement('div');
+    blockDiv.classList.add('post');
 
     const blockImg = document.createElement('img');
     blockImg.classList.add('post__image');
@@ -43,11 +45,11 @@ const posts = [
     blockButton.setAttribute('href', `${link}`);
     blockButton.textContent = link;
 
-    
-    block.appendChild(blockImg);
-    block.appendChild(blockTitle);
-    block.appendChild(blockText);
-    block.appendChild(blockButton);
+    block.appendChild(blockDiv);
+    blockDiv.appendChild(blockImg);
+    blockDiv.appendChild(blockTitle);
+    blockDiv.appendChild(blockText);
+    blockDiv.appendChild(blockButton);
     
     return block;
 };
@@ -58,5 +60,5 @@ function createCards(posts) {
 
 
 const body = document.querySelector('body');
-createCards(posts).forEach(item => body.appendChild(item));
-console.log(createCards(posts));
+const inner = createCards(posts).reduce((acc, item) => acc += item.innerHTML, '');
+body.appendChild(document.createElement('div')).innerHTML = inner;
