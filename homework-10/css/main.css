@@ -1,0 +1,29 @@
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+th, td {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+}
+.table {
+    font-size: 12px;
+}
+.box {
+    border: 3px solid green;
+}
+.box:not(:first-child) {
+    border-left: none;
+}
+h2 {
+    text-align: center;
+}
+th:first-child {
+    width: 172px;
+}
+th:nth-child(2) {
+    width: 79px;
+}
+th:last-child {
+    width: 61px;
+}

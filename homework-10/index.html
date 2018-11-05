@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 box">
+                <h2>
+                    All Users
+                </h2>
+                <button class="button button_get-all-users">Get all users</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>AGE</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table table_get-all-users"></tbody>
+                </table>
+                <!-- <p class="result_all-users"></p> -->
+            </div>
+            <div class="col-4 box">
+                <div class="row">
+                    <div class="col flex">
+                        <h2>Get user by ID</h2>
+                        <input type="text" name="id" class="input input_user-by-id" placeholder="дай ID">
+                        <button class="button button_user-by-id">Get user</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>AGE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table table_user-by-id"></tbody>
+                        </table>
+                        <!-- <p class="result_user-by-id"></p> -->
+                    </div>
+                    <div class="col flex">
+                        <h2 class="border-top">Add user</h2>
+                        <input type="text" name="name" class="input input_add-user-name input_name" placeholder="дай имя">
+                        <input type="text" name="age" class="input input_add-user-age input_age" placeholder="дай годы">
+                        <button class="button button_add">Add user</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>AGE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table table_add_user"></tbody>
+                        </table>
+                        <!-- <p class="result_add-user"></p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 box">
+                <div class="row">
+                    <div class="col flex">
+                        <h2>Deleate</h2>
+                        <input type="text" name="id-deleate" class="input input_del-ID" placeholder="дай ID">
+                        <button class="button button_del">Deleate</button>
+                        <p class="result_del"></p>
+                    </div>
+                    <div class="col flex">
+                        <h2 class="border-top">Update</h2>
+                        <input type="text" name="up_ID" class="input input_up-id" placeholder="дай ID">
+                        <input type="text" name="up_name" class="input input_up-name" placeholder="дай имя">
+                        <input type="text" name="up_age" class="input input_up-age" placeholder="дай годы">
+                        <button class="button button_up">Update</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>AGE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table table_up"></tbody>
+                        </table>
+                        <!-- <p class="result_up"></p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/hw-10.js"></script>
+</body>
+
+</html>
