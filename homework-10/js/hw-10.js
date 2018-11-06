@@ -79,8 +79,8 @@ function deleateUser(evt) {
 function updateUser(evt) {
     evt.preventDefault();
     const update = {
-        name: `${inputNewName.value}`,
-        age: `${Number(inputNewAge.value)}`
+        name: `${upName.value}`,
+        age: `${Number(upAge.value)}`
     }
     fetch(`https://test-users-api.herokuapp.com/users/${upId.value}`, {
             method: 'PUT',
@@ -147,5 +147,8 @@ function createResponseTable({
 }
 function respStatus(status) {
     delRes.innerHTML = '';
-    delRes.innerHTML = `${status}`;
+    delRes.innerHTML = status === 200 ? 
+                      `статус запроса: ${status}, что значит: удалён` : 
+                      'Уупс, что-то пошло не так'
+
 }
