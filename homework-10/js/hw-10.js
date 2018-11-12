@@ -46,6 +46,7 @@ function getById(evt) {
         .then(response => response.json())
         .then(data => addingById(data.data))
         .catch(error => console.log(error));
+        clearInput(inputUserById);
 }
 
 function addNameAge(evt) {
@@ -64,16 +65,17 @@ function addNameAge(evt) {
         }).then(response => response.json())
         .then(data => addingNameAge(data.data))
         .catch(error => console.log(error));
-
+        clearInput(inputNewName, inputNewAge);
 }
 
 function deleateUser(evt) {
     evt.preventDefault();
     fetch(`https://test-users-api.herokuapp.com/users/${delId.value}`, {
-  method: 'DELETE'
-}).then(response => respStatus(response.status))
-.catch(error => console.log(error));
-
+        method: 'DELETE'
+        })
+        .then(response => respStatus(response.status))
+        .catch(error => console.log(error));
+        clearInput(delId);
 }
 
 function updateUser(evt) {
@@ -91,28 +93,29 @@ function updateUser(evt) {
             }).then(response => response.json())
             .then(data => addingUpdate(data.data))
             .catch(error => console.log(error));
+    clearInput(upName, upAge, upId);
 }
 
 function addingAll(data) {
-    tableGetAll.innerHTML = '';
+    deleateAll()
     const HTMLString = data.reduce((acc, el) => acc += createTable(el), '')
     tableGetAll.insertAdjacentHTML('afterbegin', `${HTMLString}`);
 }
 
 function addingById(data) {
-    tableUserById.innerHTML = '';
+    deleateAll()
     const HTMLString = createTable(data);
     tableUserById.insertAdjacentHTML('afterbegin', `${HTMLString}`);
 }
 
 function addingNameAge(data) {
-    tableAddUser.innerHTML = '';
+    deleateAll()
     const HTMLString = createResponseTable(data);
     tableAddUser.insertAdjacentHTML('afterbegin', `${HTMLString}`);
 }
 
 function addingUpdate(data) {
-    tableUp.innerHTML = '';
+    deleateAll()
     const HTMLString = createTable(data);
     tableUp.insertAdjacentHTML('afterbegin', `${HTMLString}`);
 }
@@ -146,9 +149,20 @@ function createResponseTable({
     `;
 }
 function respStatus(status) {
-    delRes.innerHTML = '';
+    deleateAll()
     delRes.innerHTML = status === 200 ? 
-                      `статус запроса: ${status}, что значит: удалён` : 
+                      `пользователь удалён` : 
                       'Уупс, что-то пошло не так'
 
+}
+function deleateAll() {
+    delRes.innerHTML = '';
+    tableUp.innerHTML = '';
+    tableAddUser.innerHTML = '';
+    tableUserById.innerHTML = '';
+    tableGetAll.innerHTML = '';
+}
+
+function clearInput (...inputs) {
+    inputs.forEach(input => input.value = "");
 }
