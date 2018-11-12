@@ -19,34 +19,29 @@ const buildGallery = (arrObj) => {
   
   const full = document.createElement('div');
   full.classList.add('fullview');
-  gallery.prepend(full);
 
   const preview = document.createElement('ul');
   preview.classList.add('preview');
-  gallery.appendChild(preview);
 
-  (function(arrObj) {
-    arrObj.forEach(liEl => {
-      const liItem = document.createElement('li');
-      preview.appendChild(liItem);
-    });
-    const liItems = Array.from(document.querySelectorAll('li'));
-    liItems.forEach((li, i) => {
+  const fullImg = document.createElement('img');
+
+  arrObj.forEach((liEl, i) => {
+    const liItem = document.createElement('li');
+
     const liImg = document.createElement('img');
+
+    preview.appendChild(liItem);    
     liImg.setAttribute('src', arrObj[i].preview);
     liImg.setAttribute('alt', arrObj[i].alt);
     liImg.dataset.fullview = arrObj[i].fullview;
-    li.appendChild(liImg);
-    });
-  }(arrObj));
-
-  const liImg = Array.from(document.querySelectorAll('img'));
-  const fullImg = document.createElement('img');
-
-  fullImg.setAttribute('src', liImg[0].dataset.fullview);
-  fullImg.setAttribute('alt', liImg[0].alt);
-  full.appendChild(fullImg);
-  liImg[0].parentNode.classList.add('preview_selected');
+    liItem.appendChild(liImg);
+    if (i == 0) {
+      liItem.classList.add('preview_selected');
+      fullImg.setAttribute('src', liImg.dataset.fullview);
+      fullImg.setAttribute('alt', liImg.alt);
+      full.appendChild(fullImg);
+    }
+  });
 
   const switcher = (e) => {
 
@@ -62,7 +57,14 @@ const buildGallery = (arrObj) => {
     fullImg.setAttribute('alt', arrObj.find(imgs => imgs.preview == target.getAttribute('src')).alt);
   }
 
+  buildingDOM(full, preview);
+
   preview.addEventListener('click', switcher);
+}
+
+function buildingDOM(full, preview) {
+  gallery.prepend(full);
+  gallery.appendChild(preview);
 }
 
 buildGallery(galleryItems);
