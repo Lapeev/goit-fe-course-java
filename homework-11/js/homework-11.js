@@ -115,24 +115,35 @@ function show(evt) {
 
 function filterCards (inputs) {
     const filter = {
-        size: inputs.filter(e => e.name == 'size').map( e => e.value),
-        color: inputs.filter(e => e.name == 'color').map( e => e.value),
-        release_date : inputs.filter(e => e.name == 'release_date').map( e => e.value),
+        size: inputs.filter(e => e.name == 'size').map(e => e.value),
+        color: inputs.filter(e => e.name == 'color').map(e => e.value),
+        release_date : inputs.filter(e => e.name == 'release_date').map(e => e.value),
+    }
+
+    for (const prop in filter) {
+      if (filter[prop].length == 0) {
+        filter[prop] = laptops.reduce((acc, obj) => acc.includes(String(obj[prop])) ? 
+                                                        acc :
+                                                        acc.concat(String(obj[prop])), []);
+      }
     }
     buildlist(filter);
+    console.log(filter);
 }
 
 function buildlist (obj) {
-    let doubleList = [];
+    let tripleList = [];
     for (const prop in obj) {
-        obj[prop].forEach((value) => doubleList.push(...laptops.reduce((acc, laptop) => laptop[prop] == value ?
+        obj[prop].forEach((value) => tripleList.push(...laptops.reduce((acc, laptop) => laptop[prop] == value ?
                                                         acc.concat(laptop) :
                                                         acc, [])))
     }
-    const filteredList = doubleList.reduce((acc, item) => acc = acc.includes(item) ?
+    const doubleList = tripleList.reduce((acc, item) => acc = acc.includes(item) ?
                                                          acc :
-                                                         acc.concat(item) ,[]);   
-    domBuilder(filteredList);                                              
+                                                         acc.concat(item) ,[]);
+    
+    const filteredList = doubleList.filter(dObj => obj.size.includes(String(dObj.size))&&obj.color.includes(dObj.color)&&obj.release_date.includes(String(dObj.release_date)))                                                     
+    domBuilder(filteredList);  
 }
 
 function deleate() {
