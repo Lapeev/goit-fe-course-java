@@ -1,0 +1,151 @@
+'use strict';
+
+const laptops = [
+    {
+      size: 13,
+      color: 'white',
+      price: 28000,
+      release_date: 2015,
+      name: 'Macbook Air White 13"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 13,
+      color: 'gray',
+      price: 32000,
+      release_date: 2016,
+      name: 'Macbook Air Gray 13"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 13,
+      color: 'black',
+      price: 35000,
+      release_date: 2017,
+      name: 'Macbook Air Black 13"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 15,
+      color: 'white',
+      price: 45000,
+      release_date: 2015,
+      name: 'Macbook Air White 15"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 15,
+      color: 'gray',
+      price: 55000,
+      release_date: 2016,
+      name: 'Macbook Pro Gray 15"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 15,
+      color: 'black',
+      price: 45000,
+      release_date: 2017,
+      name: 'Macbook Pro Black 15"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 17,
+      color: 'white',
+      price: 65000,
+      release_date: 2015,
+      name: 'Macbook Air White 17"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 17,
+      color: 'gray',
+      price: 75000,
+      release_date: 2016,
+      name: 'Macbook Pro Gray 17"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+    {
+      size: 17,
+      color: 'black',
+      price: 80000,
+      release_date: 2017,
+      name: 'Macbook Pro Black 17"',
+      img: 'http://demo.posthemes.com/pos_zadademo/images/placeholder.png',
+      descr:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, beatae.',
+    },
+  ];
+
+const list = document.querySelector('.list');
+const source = document.querySelector('template').innerHTML.trim();
+const form = document.querySelector('.js-form');
+const buttons = document.querySelectorAll('button');
+
+form.addEventListener('click', formHandler);
+
+function formHandler(evt) {
+  const target = evt.target;
+  if (target.textContent == 'Filter') show(evt);
+  if (target.textContent == 'Clear') deleate();
+}
+
+function show(evt) {
+    evt.preventDefault();
+    const checkBoxes = document.querySelectorAll('input');
+    const checkBoxesChecked = Array.from(checkBoxes).filter(box => box.checked);
+    filterCards(checkBoxesChecked);    
+}
+
+function filterCards (inputs) {
+    const filter = {
+        size: inputs.filter(e => e.name == 'size').map( e => e.value),
+        color: inputs.filter(e => e.name == 'color').map( e => e.value),
+        release_date : inputs.filter(e => e.name == 'release_date').map( e => e.value),
+    }
+    buildlist(filter);
+}
+
+function buildlist (obj) {
+    let doubleList = [];
+    for (const prop in obj) {
+        obj[prop].forEach((value) => doubleList.push(...laptops.reduce((acc, laptop) => laptop[prop] == value ?
+                                                        acc.concat(laptop) :
+                                                        acc, [])))
+    }
+    const filteredList = doubleList.reduce((acc, item) => acc = acc.includes(item) ?
+                                                         acc :
+                                                         acc.concat(item) ,[]);   
+    domBuilder(filteredList);                                              
+}
+
+function deleate() {
+  list.innerHTML = '';
+}
+
+function domBuilder(listItems) {
+  const template = Handlebars.compile(source);
+  const markUp = listItems.reduce((acc, item) => acc += template(item),'');
+  addingMarkup(markUp);
+}
+
+function addingMarkup(markUp) {
+  deleate();
+  list.insertAdjacentHTML('beforeend', markUp);
+}
