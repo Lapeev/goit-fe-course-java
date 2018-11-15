@@ -128,21 +128,11 @@ function filterCards (inputs) {
       }
     }
     buildlist(filter);
-    console.log(filter);
 }
 
 function buildlist (obj) {
-    let tripleList = [];
-    for (const prop in obj) {
-        obj[prop].forEach((value) => tripleList.push(...laptops.reduce((acc, laptop) => laptop[prop] == value ?
-                                                        acc.concat(laptop) :
-                                                        acc, [])))
-    }
-    const doubleList = tripleList.reduce((acc, item) => acc = acc.includes(item) ?
-                                                         acc :
-                                                         acc.concat(item) ,[]);
     
-    const filteredList = doubleList.filter(dObj => obj.size.includes(String(dObj.size))&&obj.color.includes(dObj.color)&&obj.release_date.includes(String(dObj.release_date)))                                                     
+    const filteredList = laptops.filter(laptops => obj.size.includes(String(laptops.size))&&obj.color.includes(laptops.color)&&obj.release_date.includes(String(laptops.release_date)));                                                     
     domBuilder(filteredList);  
 }
 
@@ -160,3 +150,5 @@ function addingMarkup(markUp) {
   deleate();
   list.insertAdjacentHTML('beforeend', markUp);
 }
+
+domBuilder(laptops);
