@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    outline: none;
 }
 body {
     background: #F5F3EF;
@@ -49,7 +50,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 450px;
+    width: 30vw;
     height: auto;
     border: 1px solid #cccccc;
     border-radius: 4px;
@@ -58,15 +59,16 @@ button {
     justify-content: space-between;
     background: #ffffff;
 }
-.card:not(:first-child) {
+.card {
     margin-left: 16px;
+    margin-bottom: 16px;
 }
 .card:hover {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
 }
 .card__img {
-    width: 400px;
-    height: 260px;
+    width: 90%;
+    height: auto;
     margin-bottom: 16px;
 }
 .card__url {

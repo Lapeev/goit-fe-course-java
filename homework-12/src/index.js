@@ -20,21 +20,8 @@ const LOCALSTORAGE = (w => {
 
 (function () {
   if (LOCALSTORAGE.isActive && localStorage.getItem("urls") !== null && localStorage.getItem("urls").length > 1) {
-    const arr = (localStorage.getItem("urls").split(' ')).reverse();
-    arr.forEach((item) => {
-      const data = {
-        key: '5bf2d1ec4b50cca78c4487af4257616699a353ccaf296',
-        q: item
-      }
-      fetch('https://api.linkpreview.net', {
-          method: 'POST',
-          mode: 'cors',
-          body: JSON.stringify(data),
-        })
-        .then(res => res.json())
-        .then(response => addingMarkup(buildDOM(response)))
-        .catch(err => console.log(err))
-    })
+    const arr = (localStorage.getItem("urls").split('!-!'));
+    arr.forEach((item) => addingMarkup(headerTpl(JSON.parse(item))))
   }
 }())
 
@@ -61,15 +48,16 @@ function add(e) {
       })
       .then(res => {
         if (res.status == 200) {
-          if (LOCALSTORAGE.isActive) {
-            setLocalStorage(url.value);
-          }
           clearForm();
           return res.json();
         }
         throw new Error(`Error while fetching: ${res.statusText}`);
       })
-      .then(response => addingMarkup(buildDOM(response)))
+      .then(response => {
+        if (LOCALSTORAGE.isActive) {
+          setLocalStorage(response);
+        }
+        addingMarkup(buildDOM(response))})
       .catch(err => console.log(err))
   } else return;
 }
@@ -105,30 +93,32 @@ function deleating(e) {
   const target = e.target;
   if (target.nodeName == 'BUTTON') {
     e.preventDefault();
-    deleateFromStorage(target.parentNode.children[3].href);
+    if (LOCALSTORAGE.isActive) {
+      const reg = /!-!/;
+      const arr = localStorage.getItem("urls").split(reg);
+      const arrJSON = arr.map(el => JSON.parse(el));
+      const newArrJSON = arrJSON.filter(elem => elem.url !== target.parentNode.children[3].href);
+      const newArr = newArrJSON.map(el => JSON.stringify(el));
+      localStorage.setItem('urls', `${(newArr.join('!-!')).trim()}`);  
+  }
     target.parentNode.remove();
   }
 }
 
-function setLocalStorage(url) {
+function setLocalStorage(response) {
   if (localStorage.getItem("urls") == null)
-    localStorage.setItem('urls', `${url}`);
-  if (!localStorage.getItem('urls').includes(url))
-    localStorage.setItem('urls', `${localStorage.getItem("urls")} ${url}`);
-}
+        localStorage.setItem('urls', `${JSON.stringify(response)}`);
+        if (!localStorage.getItem('urls').includes(JSON.stringify(response)))
+            localStorage.setItem('urls', `${localStorage.getItem("urls")}!-!${JSON.stringify(response)}`);
+    }
 
 function clearStorage(e) {
   e.preventDefault();
+  clearForm();
+  cards.innerHTML = '';
   localStorage.clear();
 }
 
-function deleateFromStorage(el) {
-  if (LOCALSTORAGE.isActive) {
-    const arr = localStorage.getItem("urls").split(' ');
-    const newArr = arr.filter(elem => elem !== el);
-    localStorage.setItem('urls', `${(newArr.join(' ')).trim()}`);
-  }
-}
 
 function clearForm() {
   url.value = '';
