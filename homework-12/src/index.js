@@ -57,9 +57,13 @@ function add(e) {
         if (LOCALSTORAGE.isActive) {
           setLocalStorage(response);
         }
-        addingMarkup(buildDOM(response))})
+        addingMarkup(buildDOM(response))
+      })
       .catch(err => console.log(err))
-  } else return;
+  } else {
+    clearForm();
+    return;
+  }
 }
 
 function buildDOM(response) {
@@ -74,9 +78,9 @@ function addingMarkup(markUp) {
 function alredyIn(url) {
   const allURLs = Array.from(document.querySelectorAll('.card__url')).reduce((acc, el) => acc.concat(el.href), []);
   if (allURLs.includes(url.value)) {
-    clearForm();
     alert('Такая закладка уже есть в списке');
   }
+
   return allURLs.includes(url.value);
 }
 
@@ -99,18 +103,18 @@ function deleating(e) {
       const arrJSON = arr.map(el => JSON.parse(el));
       const newArrJSON = arrJSON.filter(elem => elem.url !== target.parentNode.children[3].href);
       const newArr = newArrJSON.map(el => JSON.stringify(el));
-      localStorage.setItem('urls', `${(newArr.join('!-!')).trim()}`);  
-  }
+      localStorage.setItem('urls', `${(newArr.join('!-!')).trim()}`);
+    }
     target.parentNode.remove();
   }
 }
 
 function setLocalStorage(response) {
   if (localStorage.getItem("urls") == null)
-        localStorage.setItem('urls', `${JSON.stringify(response)}`);
-        if (!localStorage.getItem('urls').includes(JSON.stringify(response)))
-            localStorage.setItem('urls', `${localStorage.getItem("urls")}!-!${JSON.stringify(response)}`);
-    }
+    localStorage.setItem('urls', `${JSON.stringify(response)}`);
+  if (!localStorage.getItem('urls').includes(JSON.stringify(response)))
+    localStorage.setItem('urls', `${localStorage.getItem("urls")}!-!${JSON.stringify(response)}`);
+}
 
 function clearStorage(e) {
   e.preventDefault();
