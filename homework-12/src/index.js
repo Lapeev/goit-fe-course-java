@@ -110,7 +110,7 @@ function deleating(e) {
 }
 
 function setLocalStorage(response) {
-  if (localStorage.getItem("urls") == null)
+  if (localStorage.getItem("urls") == null || localStorage.getItem("urls") == '')
     localStorage.setItem('urls', `${JSON.stringify(response)}`);
   if (!localStorage.getItem('urls').includes(JSON.stringify(response)))
     localStorage.setItem('urls', `${localStorage.getItem("urls")}!-!${JSON.stringify(response)}`);
